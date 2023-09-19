@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - NextStage
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - floor
+  - shadow
+  - Tile
+  - Next
+  - NPC
+  - Player
+  - 
+  - 
+  - OverUI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: mouse
+    uniqueID: 1926274641
+    locked: 0
+  - name: etc
+    uniqueID: 1198486997
+    locked: 0
+  - name: New Layer 3
+    uniqueID: 4154299499
+    locked: 0
