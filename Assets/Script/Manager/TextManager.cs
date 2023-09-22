@@ -89,7 +89,7 @@ public class TextManager : Singleton<TextManager>
     }
 
     // 찾는 텍스트 위치, 플레이어이름, 스크립트써지는 속도, 폰트 사이즈
-    public void Action(int _textnum, GameObject _obj = null, int[] _Text = null, float _scriptspeed = 0.015f, int _font = 50)
+    public void Action(int _textnum, GameObject _obj = null, int[] _Text = null, float _scriptspeed = 0.015f, int _font = 40)
     {
         if (!isAction)
         {            
@@ -205,6 +205,7 @@ public class TextManager : Singleton<TextManager>
         scriptspeed = 0.015f;
         name1.text = "";
         talkText.text = "";
+        talkText.font = 40;
     }
     MyTextoption optioninit(bool repeat)
     {

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite;
     Animator animator;
+    RaycastHit2D ray;
 
     public float MaxSpeed;
 
@@ -56,6 +57,12 @@ public class Player : MonoBehaviour
 
             if (!jumprock)
                 Jump();
+
+        }
+        else
+            if (Input.GetButtonDown("Jump"))
+        {
+            TextMgr.NextScript();
         }
         player_animation();
 
@@ -100,7 +107,7 @@ public class Player : MonoBehaviour
         Vector3 scale = new Vector3(0, -7.5f, 0);
         // RayCast
         Debug.DrawRay(rigid.position, scale, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, scale.normalized, Mathf.Abs(scale.y), LayerMask.GetMask("floor"));
+        ray = Physics2D.Raycast(rigid.position, scale.normalized, Mathf.Abs(scale.y), LayerMask.GetMask("Tile"));
 
         // 충돌된 물체의 정보 출력
         /*if ( Acctime > 1)
@@ -112,12 +119,13 @@ public class Player : MonoBehaviour
         }*/
 
 
-        if (rayHit.collider != null)
+        if (ray.collider != null)
         {
             if (rigid.velocity.y <= 0)
                 JumpCount = MaxJumpCount;
         }
 
+        Animator anim = shadow.GetComponent<Animator>();
         if (JumpCount > 0)
         {
             if (Input.GetButtonDown("Jump"))
@@ -127,17 +135,11 @@ public class Player : MonoBehaviour
                 --JumpCount;
                 rigid.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
 
-                
-                
-            }
-        }
-        Animator anim = shadow.GetComponent<Animator>();
-        if (Input.GetButtonDown("Jump"))
-        {
+                shadow.SetActive(true);
+                shadow.transform.SetPositionAndRotation(new Vector3(transform.position.x, posirion_y, 0), Quaternion.identity);
+                anim.SetBool("jump", true);
 
-            shadow.SetActive(true);
-            shadow.transform.SetPositionAndRotation(new Vector3(transform.position.x, posirion_y, 0), Quaternion.identity);
-            anim.SetBool("jump", true);
+            }
         }
         if (JumpCount == MaxJumpCount)
         {
@@ -181,7 +183,9 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Hit object: " + collision.gameObject.name);
-        if (collision.gameObject.name == "Tilemap" && collision.contacts[0].point.y < this.gameObject.transform.position.y + this.gameObject.transform.localScale.y / 2)
+        
+        //if (collision.gameObject.name == "Tilemap" && collision.contacts[0].point.y < this.gameObject.transform.position.y + this.gameObject.transform.localScale.y / 2 )
+        if(ray.collider !=null && collision.gameObject.layer == LayerMask.NameToLayer("Tile"))
         {
             //JumpCount = MaxJumpCount;
             posirion_y = collision.contacts[0].point.y + 4;
@@ -208,22 +212,14 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Next"))
-        {
-            rigid.velocity = Vector3.zero;
+        {            
             GameManager.ChangeStage(1);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-                rigid.velocity = Vector3.zero;
-                TextMgr.NextScript();
-            }
-        }
+        
     }
 }
 

@@ -47,6 +47,7 @@ public class set : MonoBehaviour
 
             AudioSlider_Bgm.value = sound;
             AudioSlider_SFX.value = sound;
+            SoundMgr.Inst.SetVolume(-80, -80);
         }
         else 
         { 
@@ -56,7 +57,9 @@ public class set : MonoBehaviour
 
             AudioSlider_Bgm.value = sound;
             AudioSlider_SFX.value = sound;
+            SoundMgr.Inst.SetVolume(sound, sound);
         }
+        
     }
     public void AndioControl_BGM()
     {
@@ -70,11 +73,13 @@ public class set : MonoBehaviour
 
         if (sound == -40f)
         {
-            MasterMixer.SetFloat("BGM", -80);
+            MasterMixer.SetFloat("BGM", -80);            
+            SoundMgr.Inst.SetVolume_BGM(0);
         }
         else
         {
             MasterMixer.SetFloat("BGM", sound);
+            SoundMgr.Inst.SetVolume_BGM(sound);
         }
     }
     public void AndioControl_SFX()
@@ -88,10 +93,12 @@ public class set : MonoBehaviour
         if (sound == -40f)
         {
             MasterMixer.SetFloat("SFX", -80);
+            SoundMgr.Inst.SetVolume_SFX(-80);
         }
         else
         {
             MasterMixer.SetFloat("SFX", sound);
+            SoundMgr.Inst.SetVolume_SFX(sound);
         }
     }
 }

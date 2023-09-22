@@ -8708,7 +8708,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BgmClip: {fileID: 0}
   BgmVolume: 0.2
-  SfxClip: []
+  SfxClip:
+  - {fileID: 0}
   SfxVolume: 0.5
   Channel: 16
 --- !u!1 &1519397941
