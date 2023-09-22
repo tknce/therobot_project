@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum StageValue : int
+public enum StageValue : int
 {
     setting, Village, Stage_1, Stage_2
 }
@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     public TileManager TileManager;
     public GameObject Player;
     public GameObject[] Stages;
-    StageValue StageType;
+    public StageValue StageType;
     Rigidbody2D rigid;
     void Start()
     {

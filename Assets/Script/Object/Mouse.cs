@@ -7,7 +7,7 @@ public class Mouse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         
     }
 
@@ -18,8 +18,8 @@ public class Mouse : MonoBehaviour
     }
     void mousePos()
     {
-        if (Cursor.visible)
-            Cursor.visible = false;
+        //if (Cursor.visible)
+           // Cursor.visible = false;
 
         Vector3 pos = new Vector3(Input.mousePosition.x,Input.mousePosition.y, 5f);
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);

@@ -193,6 +193,11 @@ public class Player : MonoBehaviour
 
 
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        --JumpCount;
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
      
@@ -204,6 +209,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Next"))
         {
+            rigid.velocity = Vector3.zero;
             GameManager.ChangeStage(1);
         }
     }
@@ -214,6 +220,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
+                rigid.velocity = Vector3.zero;
                 TextMgr.NextScript();
             }
         }

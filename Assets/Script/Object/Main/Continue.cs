@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Continue : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void ContinueStage()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int stage = (int)GameManager.Inst.StageType;
+        GameManager.Inst.ChangeStage(stage);
     }
 }
