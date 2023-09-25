@@ -25,18 +25,20 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
         {
             instance = (T)this;
             DontDestroyOnLoad(gameObject); // 유니티 씬 전환 시에도 유지됩니다.
+            Debug.Log(gameObject.name + "생성 성공");
         }
         else if (instance != this)
         {
             Destroy(gameObject); // 이미 다른 인스턴스가 있는 경우 이 인스턴스를 파괴합니다.
         }
+        
     }
 
     protected virtual void OnDestroy()
     {
         if (instance == this)
         {
-            instance = null;
+            Destroy(this);
         }
     }
 }

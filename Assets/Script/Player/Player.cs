@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     public bool jumprock;
     public bool rock;
+    public bool villige_Camera;
 
     public float test;
 
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
         MaxJumpCount = 1;
         jumprock = false;
         rock = false;
+        //villige_Camera = false;
     }
     void Update()
     {
@@ -165,9 +167,20 @@ public class Player : MonoBehaviour
 
     void ChildControl_Camera()
     {
-        Vector3 cameramove = new Vector3(playerCamera.transform.position.x, 
-            this.transform.position.y , 
+        Vector3 cameramove = Vector3.zero;
+        if (villige_Camera)
+        {
+            cameramove = new Vector3(this.transform.position.x,
+            this.transform.position.y,
             playerCamera.transform.position.z);
+        }
+        else
+        {
+            cameramove = new Vector3(playerCamera.transform.position.x,
+                             this.transform.position.y,
+                        playerCamera.transform.position.z);
+        }
+
         playerCamera.transform.SetPositionAndRotation(cameramove, Quaternion.identity);
     }
 

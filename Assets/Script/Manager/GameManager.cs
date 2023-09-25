@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum StageValue : int
 {
-    setting, Village, Stage_1, Stage_2
+    setting, Village, Stage_1, Stage_2, EBA_Stage, HANS_Stage
 }
 public class GameManager : Singleton<GameManager>
 {
@@ -45,14 +45,20 @@ public class GameManager : Singleton<GameManager>
 
         if (obj1 != null)
         {
-
             obj1.SetActive(false);
             Debug.Log(Stage);
             Debug.Log("스테이지체인지 실행 완료");
         }
         if (Stages[(int)StageType] != null)
         {
-
+            if(StageValue.Village == (StageValue)Stage)
+            {
+                Player.GetComponent<Player>().villige_Camera = true;
+            }
+            else
+            {
+                Player.GetComponent<Player>().villige_Camera = false;
+            }
             Stages[(int)StageType].SetActive(false);
             StageType = (StageValue)Stage;
             if (StageType != StageValue.setting)            

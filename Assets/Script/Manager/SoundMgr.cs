@@ -55,9 +55,7 @@ public class SoundMgr : Singleton<SoundMgr>
             sfxPlayers[i].playOnAwake = false;            
             // sfxPlayers[i].volume = SfxVolume;
             sfxPlayers[i].outputAudioMixerGroup = MasterMixer.FindMatchingGroups("SFX")[0];
-        }
-
-        PlayBGM();
+        }       
     }
 
     public void PlaySfx(Sfx sfx)
@@ -77,12 +75,11 @@ public class SoundMgr : Singleton<SoundMgr>
 
     public void PlayBGM()
     {
-        BgmPlayer.Play();
+        //BgmPlayer.Play();
     }
 
     public void SetVolume(float _BGM, float _SFX)
     {
-        return;
         BgmVolume = _BGM;
         SfxVolume = _SFX;
         BgmPlayer.volume = BgmVolume;
@@ -94,7 +91,6 @@ public class SoundMgr : Singleton<SoundMgr>
     }
     public void SetVolume_BGM(float _BGM)
     {
-        return;
         BgmVolume = _BGM;
         BgmPlayer.volume = BgmVolume;
 
@@ -102,7 +98,6 @@ public class SoundMgr : Singleton<SoundMgr>
     }
     public void SetVolume_SFX( float _SFX)
     {
-        return;
         SfxVolume = _SFX;
         for (int i = 0; i < sfxPlayers.Length; ++i)
         {

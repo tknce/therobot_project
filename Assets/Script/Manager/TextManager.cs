@@ -42,12 +42,12 @@ public class TextManager : Singleton<TextManager>
     private GameObject interObj;
     void Start()
     {
+        idx2 = 1;
         scriptspeed = 0.095f;
         Nextpage = true;
         ExitPage = true;
         arrText = new Dictionary<int, List<string>>();
         arrbool = new Dictionary<int, MyTextoption>();
-        idx2 = 0;
         StartScriptText();
         talkText.text = "";
         
@@ -89,13 +89,13 @@ public class TextManager : Singleton<TextManager>
     }
 
     // 찾는 텍스트 위치, 플레이어이름, 스크립트써지는 속도, 폰트 사이즈
-    public void Action(int _textnum, GameObject _obj = null, int[] _Text = null, float _scriptspeed = 0.015f, int _font = 40)
+    public bool Action(int _textnum, GameObject _obj = null, int[] _Text = null, float _scriptspeed = 0.015f, int _font = 40)
     {
         if (!isAction)
         {            
             if (!ExitPage || !TextEnter(_textnum))
             {
-                return;
+                return false;
             }            
 
             isAction = true;
@@ -113,9 +113,15 @@ public class TextManager : Singleton<TextManager>
             scriptspeed = _scriptspeed;
             talkText.fontSize = _font;
             Nextpage = true;
-            idx = 0;
+            idx = 0;            
+        }
+        else
+        {
+            talkpanel.SetActive(isAction);
+            return false;
         }
         talkpanel.SetActive(isAction);
+        return true;
     }
 
     public bool NextScript()
@@ -172,22 +178,211 @@ public class TextManager : Singleton<TextManager>
         list.Add("누가 지어줬어?");
         list.Add(gameManager.Player.name);
         list.Add("지어준 사람의 이름은 데이터 내에 들어있지 않습니다.");
-        arrText.Add(1, list);
-        arrbool.Add(1, optioninit(false));
+        list.Add("에바");
+        list.Add("아쉽네~");
+        list.Add("에바");
+        list.Add("있지, 나랑 놀자! 재밌을거야!");
+        list.Add(gameManager.Player.name);
+        list.Add("재미는 학습데이터에 있지 않습니다.");
+        list.Add("에바");
+        list.Add("그게 뭐야~ 그럼 내가 가르쳐줄게!");
+        list.Add("에바");
+        list.Add("간단한 것부터 해볼까! 일단 웃어봐");
+        list.Add(gameManager.Player.name);
+        list.Add("어떻게 웃습니까?");
+        list.Add("에바");
+        list.Add("나를 따라해봐!");   // 미소 이모티콘
+        list.Add(gameManager.Player.name);
+        list.Add("웃고 있습니다.");
+        list.Add("에바");
+        list.Add("잘했어!!! 충분해");
+        list.Add("에바");
+        list.Add("놀기 전에 부탁이 있어.... 내가 놀다가 풍선을 놓쳤는데");
+        list.Add("에바");
+        list.Add("쓰레기 산 중턱에 걸려버렸어");
+        list.Add("에바");
+        list.Add("풍선 좀 가져다 줄 수 있어?");
+        list.Add(gameManager.Player.name);
+        list.Add("알겠습니다.");
+        SetText(list); //1
 
-        // 2번
+        // 2번 쓰레기 산 근처로 간 후
         list = new List<string>();
-        list.Add("2");
-        list.Add("2");
-        arrText.Add(2, list);
-        arrbool.Add(2, optioninit(false));
+        list.Add("???");
+        list.Add("오호... 드디어 감정을 배우기 시작한건가...");
+        SetText(list); //2
 
-        // 3번 eba
+        // 3번 풍선을 얻었으면
         list = new List<string>();
-        list.Add("3");
-        list.Add("3");
-        arrText.Add(3, list);
-        arrbool.Add(3, optioninit(false));
+        list.Add("에바");
+        list.Add("우리 풍선놀이 하자!");
+        list.Add(gameManager.Player.name);
+        list.Add("알겠습니다.");
+        SetText(list); //3
+
+        // 4번 재밌게 논 후..
+        list = new List<string>();
+        list.Add("에바");
+        list.Add("재미란 무엇인지 알겠어?");
+        list.Add(gameManager.Player.name);
+        list.Add("이러한 행동이 재미입니까?");
+        list.Add("에바");
+        list.Add("아니! 놀면서 느낀 감정말이야!");
+        list.Add(gameManager.Player.name);
+        list.Add("..............");
+        list.Add(gameManager.Player.name);
+        list.Add("재미.");
+        list.Add(gameManager.Player.name);
+        list.Add("등록했습니다.");
+        list.Add("에바");
+        list.Add("그래~");
+        list.Add("에바");
+        list.Add("배고파...");
+        list.Add("에바");
+        list.Add("이제 집에 갈게!");
+        list.Add("에바");
+        list.Add("내일 또 여기서 봐!");
+        list.Add(gameManager.Player.name);
+        list.Add("항상 여기 있을 겁니다.");
+        list.Add("에바");
+        list.Add("진짜? 그럼 내일 봐!");
+        SetText(list); //4
+        // 1스테이지 과학자
+        list = new List<string>();
+        list.Add("과학자");
+        list.Add("어이 거기 로봇");
+        list.Add(gameManager.Player.name);
+        list.Add("누구십니까?");
+        list.Add("과학자");
+        list.Add("그런건 알 필요없고 저기 쓰레기 산에서 날카로운 것 좀 가져와바");
+        list.Add(gameManager.Player.name);
+        list.Add("무엇에 쓰실 겁니까?");
+        list.Add("과학자");
+        list.Add("로봇따위가 무슨 말대꾸야!!!!");
+        list.Add("가져오라면 가져와!");
+        list.Add(gameManager.Player.name);
+        list.Add("저의 이름은 "+gameManager.Player.name + "입니다.");
+        list.Add(gameManager.Player.name);
+        list.Add("정당한 사유 없이 명령을 들을 순 없습니다.");
+        list.Add("과학자");
+        list.Add("그래?");
+        list.Add("과학자");
+        list.Add("좋아.. 그럼 가져온다면 너의 성능을 업그레이드 시켜주지");
+        SetText(list); //5
+
+        // 가져온다
+        list = new List<string>();
+        list.Add(gameManager.Player.name);
+        list.Add("알겠습니다.");
+        list.Add("과학자");
+        list.Add("좋아...");
+        list.Add("과학자");
+        list.Add("쓸만한 로봇이군");
+        SetText(list); //6
+
+        // 안 가져온다
+        list = new List<string>();
+        list.Add(gameManager.Player.name);
+        list.Add("그것은 정당한 사유가 아닙니다.");
+        list.Add(gameManager.Player.name);
+        list.Add("명령을 취소합니다.");
+        list.Add("과학자");
+        list.Add("칫..");
+        list.Add("과학자");
+        list.Add("깡통로봇이잖아");
+        SetText(list); //7
+         
+
+        // 2스테이지 진입
+        list = new List<string>();
+        list.Add("에바");
+        list.Add("안녕!!" + gameManager.Player.name);
+        list.Add(gameManager.Player.name);
+        list.Add("어서오세요");
+        list.Add("에바");
+        list.Add("오늘은 뭐하고 놀까~");
+        list.Add("에바");
+        list.Add("어! 저기에 공이 있다!");
+        list.Add("에바");
+        list.Add("공놀이하자!");
+        list.Add(gameManager.Player.name);
+        list.Add("알겠습니다.");
+        SetText(list); //8
+
+        // 공을 얻은 뒤
+        list = new List<string>();
+        list.Add("에바");
+        list.Add("가져와줘서 고마워!!");
+        SetText(list); //9
+
+        // 공놀이 한 뒤
+        list = new List<string>();
+        list.Add("에바");
+        list.Add("헥헥...");
+        list.Add("에바");
+        list.Add("재밌었다");
+        list.Add("에바");
+        list.Add("(안아준다)");
+        list.Add("에바");
+        list.Add("차가워..");
+        list.Add(gameManager.Player.name);
+        list.Add("......");
+        list.Add("에바");
+        list.Add("행복하지 않아?");
+        list.Add(gameManager.Player.name);
+        list.Add("행복이 무엇입니까?");
+        list.Add("에바");
+        list.Add("지금 이 감정! 기쁨이 넘쳐나고 뭉클해지는거야");
+        list.Add(gameManager.Player.name);
+        list.Add("등록했습니다.");
+        list.Add("에바");
+        list.Add("좋아! 그럼 내일 또 놀자~");
+        SetText(list); //10
+
+        // 밤... 과학자
+        list = new List<string>();
+        list.Add("과학자");
+        list.Add("어이! 로봇!");
+        list.Add(gameManager.Player.name);
+        list.Add("저는" + gameManager.Player.name + "입니다.");
+        list.Add("과학자");
+        list.Add("알게 뭐야");
+        list.Add("과학자");
+        list.Add("로봇 주제에");
+        list.Add("과학자");
+        list.Add("어이 저기 쓰레기 산 꼭대기에 둥근 물체가 있거든?");
+        list.Add("과학자");
+        list.Add("딱 보면 알거야");
+        list.Add("과학자");
+        list.Add("그것 좀 가져다 줘");
+        list.Add("과학자");
+        list.Add("그러면 성능을 더욱 좋게 만들어주지");
+        SetText(list); //11
+        // 선택지 선택 후
+        // 승락
+        list = new List<string>();
+        list.Add(gameManager.Player.name);
+        list.Add("알겠습니다.");
+        SetText(list); // 12
+
+        // 거절
+        list = new List<string>();
+        list.Add(gameManager.Player.name);
+        list.Add("정당한 사유 없이 저에게 명령할 순 없습니다.");
+        list.Add("과학자");
+        list.Add("칫");
+        // 과학자는 뒤돌아서 간다
+        list.Add("과학자");
+        list.Add("잘 있어라 로봇");
+        SetText(list); //13
+
+    }
+
+    void SetText(List<string> list, bool _setopton = false)
+    {
+        arrText.Add(idx2, list);
+        arrbool.Add(idx2, optioninit(_setopton));
+        ++idx2;
     }
     string WritePlayername(string prt = "", string name = "", string str = "")
     {
@@ -200,12 +395,12 @@ public class TextManager : Singleton<TextManager>
         // 초기화
         idx = 0;
         arridx = null;
-        idx2 = 0;
+        idx2 = 1;
         Nextpage = false;
         scriptspeed = 0.015f;
         name1.text = "";
         talkText.text = "";
-        talkText.font = 40;
+        talkText.fontSize = 40f;
     }
     MyTextoption optioninit(bool repeat)
     {
@@ -234,6 +429,7 @@ public class TextManager : Singleton<TextManager>
     protected override void Awake()
     {
         base.Awake();
+        
     }
 
     /*    void FixedUpdate()
