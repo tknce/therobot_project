@@ -23,7 +23,7 @@ public class SoundMgr : Singleton<SoundMgr>
 
     public enum Sfx // 사운드 열거형으로 설정해두기
     {
-
+        button, 
     }
 
     protected override void Awake()
@@ -62,9 +62,16 @@ public class SoundMgr : Singleton<SoundMgr>
     {
         for(int i = 0; i < sfxPlayers.Length; ++i)
         {
-            int loopindex =(i + channelIndex) % sfxPlayers.Length;
+            int loopindex = (i + channelIndex) % sfxPlayers.Length;
             if (sfxPlayers[loopindex].isPlaying)
                 continue;
+
+            // 랜덤 효과음 재생
+            /*int ranIndex = 0;
+            if(sfx == Sfx.ddd)
+            {
+                ranIndex = Random.Range(0, 2);
+            }*/
 
             channelIndex = loopindex;
             sfxPlayers[loopindex].clip = SfxClip[(int)sfx];
@@ -73,9 +80,12 @@ public class SoundMgr : Singleton<SoundMgr>
         }
     }
 
-    public void PlayBGM()
+    public void PlayBGM(bool isplay)
     {
-        //BgmPlayer.Play();
+        if (isplay)
+            BgmPlayer.Play();
+        else
+            BgmPlayer.Stop();
     }
 
     public void SetVolume(float _BGM, float _SFX)

@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
 
 
     public float AccTime;
+    public float time;
     public float Multipletime = 1;
     public TextManager TextManager;
     public TileManager TileManager;
@@ -25,6 +26,7 @@ public class GameManager : Singleton<GameManager>
         Multipletime = 1;
         rigid = Player.GetComponent<Rigidbody2D>();
         StageType = StageValue.Village;
+        SoundMgr.Inst.BgmPlayer.Play();
     }
 
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class GameManager : Singleton<GameManager>
     {
         // 시간 배수를 설정함으로써 나중에 속도를 빠름을 볼 수 있다.
         AccTime = Time.deltaTime * Multipletime;
+        time += AccTime;
     }
 
     void MapGenerator()
@@ -42,7 +45,7 @@ public class GameManager : Singleton<GameManager>
     public void ChangeStage(int Stage)
     {
         GameObject obj1 = GameObject.Find("Main");
-
+        
         if (obj1 != null)
         {
             obj1.SetActive(false);

@@ -39,6 +39,7 @@ public class ImageChanger : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         // 버튼이 하이라이트될 때 실행할 코드를 여기에 작성합니다.
+        SoundMgr.Inst.PlaySfx(SoundMgr.Sfx.button);
         Changeimg(Chage_img);
     }
 
