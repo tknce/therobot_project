@@ -53,7 +53,10 @@ public class Player : MonoBehaviour
     {
         Acctime += GameManager.AccTime;
         
-        if(!rock)
+        if(!Input.anyKey)
+           rigid.velocity = new Vector2(0f, rigid.velocity.y);
+
+        if (!rock)
         {
             Horizontal();
 
@@ -134,13 +137,13 @@ public class Player : MonoBehaviour
             {
                 // 시험용 텍스트
                 // TextMgr.Action(1, gameObject);
-                --JumpCount;
+                --JumpCount;                
                 rigid.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
 
                 shadow.SetActive(true);
                 shadow.transform.SetPositionAndRotation(new Vector3(transform.position.x, posirion_y, 0), Quaternion.identity);
                 anim.SetBool("jump", true);
-
+                SoundMgr.Inst.PlaySfx(SoundMgr.Sfx.Jump2);
             }
         }
         if (JumpCount == MaxJumpCount)
@@ -176,12 +179,20 @@ public class Player : MonoBehaviour
         }
         else
         {
-            cameramove = new Vector3(playerCamera.transform.position.x,
+            cameramove = new Vector3(0,
                              this.transform.position.y,
                         playerCamera.transform.position.z);
         }
 
         playerCamera.transform.SetPositionAndRotation(cameramove, Quaternion.identity);
+    }
+
+    public void CameraSet()
+    {
+        Vector3 cameramove = Vector3.zero;
+        cameramove = new Vector3(0,
+        this.transform.position.y,
+        playerCamera.transform.position.z);
     }
 
     public void JumpRock(bool _bool)
@@ -224,10 +235,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Next"))
-        {            
-            GameManager.ChangeStage(1);
-        }
+
     }
     private void OnTriggerStay2D(Collider2D collision)
     {

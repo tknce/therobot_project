@@ -19,13 +19,12 @@ public class SoundMgr : Singleton<SoundMgr>
     AudioSource[] sfxPlayers;
     int channelIndex;
 
-    
+
 
     public enum Sfx // 사운드 열거형으로 설정해두기
     {
-        button, 
+        button, Jump, Jump2,
     }
-
     protected override void Awake()
     {
         base.Awake();

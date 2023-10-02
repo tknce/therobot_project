@@ -48,7 +48,7 @@ public class TextManager : Singleton<TextManager>
         ExitPage = true;
         arrText = new Dictionary<int, List<string>>();
         arrbool = new Dictionary<int, MyTextoption>();
-        StartScriptText();
+        // StartScriptText();
         talkText.text = "";
         
 
@@ -162,7 +162,7 @@ public class TextManager : Singleton<TextManager>
         return false;
     }
 
-    void StartScriptText()
+    public void StartScriptText()
     {
         // 1번 eba
         List<string> list = new List<string>();      
@@ -259,6 +259,7 @@ public class TextManager : Singleton<TextManager>
         list.Add("무엇에 쓰실 겁니까?");
         list.Add("과학자");
         list.Add("로봇따위가 무슨 말대꾸야!!!!");
+        list.Add("과학자");
         list.Add("가져오라면 가져와!");
         list.Add(gameManager.Player.name);
         list.Add("저의 이름은 "+gameManager.Player.name + "입니다.");

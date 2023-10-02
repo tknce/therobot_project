@@ -17,14 +17,17 @@ public class set : MonoBehaviour
     public Slider AudioSlider_SFX;
     public void OnoffObj()
     {
-        if(_settingChanged)
+        if(_settingChanged || GameManager.Inst.bactive)
         {
-            _settingChanged = false;
-            _setting.SetActive(_settingChanged);
-            return;
+            _settingChanged = false;            
+            _setting.SetActive(_settingChanged);                        
         }
-        _settingChanged= true;
-        _setting.SetActive(_settingChanged);
+        else
+        {
+            _settingChanged = true;            
+            _setting.SetActive(_settingChanged);
+        }
+        GameManager.Inst.bactive = _settingChanged;
     }
     // 0 1100 원래 자리 오른쪽 자리
     public void OnObj()

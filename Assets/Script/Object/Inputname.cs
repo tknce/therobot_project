@@ -32,5 +32,6 @@ public class Inputname : MonoBehaviour
         playerName = playerNameInput.text;
         // PlayerPrefs.SetString("CurrentPlayerName", playerName);
         GameManager.Inst.Player.name = playerName;
+        TextManager.Inst.StartScriptText();
     }
 }

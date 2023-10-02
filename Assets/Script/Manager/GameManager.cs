@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 public enum StageValue : int
 {
@@ -18,15 +19,21 @@ public class GameManager : Singleton<GameManager>
     public TileManager TileManager;
     public GameObject Player;
     public GameObject[] Stages;
+    public GameObject setting;
     public StageValue StageType;
+    public GameObject light;
     Rigidbody2D rigid;
+
+
+    public bool bactive;
     void Start()
     {
         AccTime = 0;
         Multipletime = 1;
         rigid = Player.GetComponent<Rigidbody2D>();
         StageType = StageValue.Village;
-        SoundMgr.Inst.BgmPlayer.Play();
+        SoundMgr.Inst.PlayBGM(true);
+        bactive = false;
     }
 
     // Update is called once per frame
@@ -35,6 +42,14 @@ public class GameManager : Singleton<GameManager>
         // 시간 배수를 설정함으로써 나중에 속도를 빠름을 볼 수 있다.
         AccTime = Time.deltaTime * Multipletime;
         time += AccTime;
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            bactive = !bactive;
+            setting.SetActive(bactive);
+        }
+            
+
     }
 
     void MapGenerator()
@@ -67,6 +82,26 @@ public class GameManager : Singleton<GameManager>
             if (StageType != StageValue.setting)            
                 PlayerReset();
             
+            
+            switch(StageType)
+            {
+                case StageValue.Village:
+                    break;
+                case StageValue.Stage_1:
+                    break;
+                case StageValue.Stage_2:
+                    break;
+                case StageValue.setting:
+                    break;
+                case StageValue.EBA_Stage:
+                    break;
+                case StageValue.HANS_Stage:                    
+                    light.GetComponent<Light2D>().color = new Color(0, 0, 0);
+                    break;
+
+            }
+
+
             Stages[(int)StageType].SetActive(true);
             return;
         }
@@ -78,6 +113,7 @@ public class GameManager : Singleton<GameManager>
         Player.SetActive(true);
         Player.transform.position = new Vector2(0f, 0f);
         Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+        // Player.GetComponent<Player>().CameraSet();
     }
 
     public void GameExit()
