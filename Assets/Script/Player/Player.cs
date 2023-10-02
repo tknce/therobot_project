@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         MaxSpeed = 50;
         MoveSpeed = 10;
-        JumpPower = 333;
+        JumpPower = 350;
         MaxJumpCount = 1;
         jumprock = false;
         rock = false;
@@ -55,6 +55,9 @@ public class Player : MonoBehaviour
         
         if(!Input.anyKey)
            rigid.velocity = new Vector2(0f, rigid.velocity.y);
+
+        if(rigid.velocity.y < -250)
+            rigid.velocity = new Vector2(0f, -250f);
 
         if (!rock)
         {

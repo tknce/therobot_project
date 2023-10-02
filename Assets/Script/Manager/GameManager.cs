@@ -57,7 +57,7 @@ public class GameManager : Singleton<GameManager>
         Vector2 Pos = rigid.position;
     }
 
-    public void ChangeStage(int Stage)
+    public void ChangeStage(int Stage, Vector2 _pos = default(Vector2))
     {
         GameObject obj1 = GameObject.Find("Main");
         
@@ -69,23 +69,18 @@ public class GameManager : Singleton<GameManager>
         }
         if (Stages[(int)StageType] != null)
         {
-            if(StageValue.Village == (StageValue)Stage)
-            {
-                Player.GetComponent<Player>().villige_Camera = true;
-            }
-            else
-            {
-                Player.GetComponent<Player>().villige_Camera = false;
-            }
             Stages[(int)StageType].SetActive(false);
             StageType = (StageValue)Stage;
             if (StageType != StageValue.setting)            
-                PlayerReset();
-            
-            
-            switch(StageType)
+                PlayerReset(_pos);
+
+            light.GetComponent<Light2D>().color = new Color(1, 1, 1);
+            Player.GetComponent<Player>().villige_Camera = false;
+            switch (StageType)
             {
+                
                 case StageValue.Village:
+                    Player.GetComponent<Player>().villige_Camera = true;
                     break;
                 case StageValue.Stage_1:
                     break;
@@ -107,13 +102,58 @@ public class GameManager : Singleton<GameManager>
         }
         Debug.Log("스테이지 이동 실패");
     }
-
-    public void PlayerReset()
+    public void ChangeStage_new(int Stage)
     {
-        Player.SetActive(true);
-        Player.transform.position = new Vector2(0f, 0f);
-        Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-        // Player.GetComponent<Player>().CameraSet();
+        GameObject obj1 = GameObject.Find("Main");
+
+        if (obj1 != null)
+        {
+            obj1.SetActive(false);
+            Debug.Log(Stage);
+            Debug.Log("스테이지체인지 실행 완료");
+        }
+        if (Stages[(int)StageType] != null)
+        {
+            Stages[(int)StageType].SetActive(false);
+            StageType = (StageValue)Stage;
+            if (StageType != StageValue.setting)
+                PlayerReset(new Vector2(0,0));
+
+            light.GetComponent<Light2D>().color = new Color(1, 1, 1);
+            Player.GetComponent<Player>().villige_Camera = false;
+            switch (StageType)
+            {
+
+                case StageValue.Village:
+                    Player.GetComponent<Player>().villige_Camera = true;
+                    break;
+                case StageValue.Stage_1:
+                    break;
+                case StageValue.Stage_2:
+                    break;
+                case StageValue.setting:
+                    break;
+                case StageValue.EBA_Stage:
+                    break;
+                case StageValue.HANS_Stage:
+                    light.GetComponent<Light2D>().color = new Color(0, 0, 0);
+                    break;
+
+            }
+
+
+            Stages[(int)StageType].SetActive(true);
+            return;
+        }
+        Debug.Log("스테이지 이동 실패");
+    }
+
+    public void PlayerReset(Vector2 pos = default(Vector2))
+    {        
+            Player.SetActive(true);
+            Player.transform.position = pos;
+            Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+            // Player.GetComponent<Player>().CameraSet();
     }
 
     public void GameExit()

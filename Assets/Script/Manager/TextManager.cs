@@ -88,14 +88,51 @@ public class TextManager : Singleton<TextManager>
         }
     }
 
-    // 찾는 텍스트 위치, 플레이어이름, 스크립트써지는 속도, 폰트 사이즈
-    public bool Action(int _textnum, GameObject _obj = null, int[] _Text = null, float _scriptspeed = 0.015f, int _font = 40)
+    int Event_check(EventWave _event)
     {
+        
+        switch (_event)
+        {
+            case EventWave.Eva_balon:
+                return 1;
+            case EventWave.Stage1_clear:
+                EventManager.Inst.SetWave(EventWave.Eva_play);
+                return 3;
+            case EventWave.Eva_play:
+                return 4;
+            case EventWave.Hans_meeting:
+                return 5;
+            case EventWave.Hans_accept:
+                return 6;
+            case EventWave.Hans_refuse:
+                return 7;
+            case EventWave.Hans_success:
+                // Hans_success 처리 코드
+                break;
+            case EventWave.Stage2_enter:
+                // Stage2_enter 처리 코드
+                break;
+            default:
+                // 기본 처리 코드 (필요에 따라)
+                break;
+        }
+        return 0;
+    }
+
+    // 찾는 텍스트 위치, 플레이어이름, 스크립트써지는 속도, 폰트 사이즈
+    public bool Action(int _textnum, GameObject _obj = null, int[] _Text = null, float _scriptspeed = 0.015f, int _font = 15)
+    {
+        if(_textnum != 2 || !TextEnter(_textnum))
+        _textnum = Event_check(EventManager.Inst.GetWave());
+
         if (!isAction)
         {            
             if (!ExitPage || !TextEnter(_textnum))
             {
-                return false;
+                if (_obj.gameObject.name == "eba")
+                    _textnum = 15;
+                else
+                    _textnum = 14;
             }            
 
             isAction = true;
@@ -209,7 +246,7 @@ public class TextManager : Singleton<TextManager>
         // 2번 쓰레기 산 근처로 간 후
         list = new List<string>();
         list.Add("???");
-        list.Add("오호... 드디어 감정을 배우기 시작한건가...");
+        list.Add("드디어 감정을 배우기 시작한건가...");
         SetText(list); //2
 
         // 3번 풍선을 얻었으면
@@ -376,6 +413,16 @@ public class TextManager : Singleton<TextManager>
         list.Add("과학자");
         list.Add("잘 있어라 로봇");
         SetText(list); //13
+
+        list = new List<string>();
+        list.Add("과학자");
+        list.Add("뭐야 꺼져");
+        SetText(list,true); //14
+
+        list = new List<string>();
+        list.Add("에바");
+        list.Add("신나게 놀자!");
+        SetText(list,true); //15
 
     }
 
