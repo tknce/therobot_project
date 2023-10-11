@@ -24,6 +24,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject light;
     Rigidbody2D rigid;
 
+    float delay;
 
     public bool bactive;
     void Start()
@@ -42,8 +43,10 @@ public class GameManager : Singleton<GameManager>
         // 시간 배수를 설정함으로써 나중에 속도를 빠름을 볼 수 있다.
         AccTime = Time.deltaTime * Multipletime;
         time += AccTime;
+        delay += AccTime;
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             bactive = !bactive;
             setting.SetActive(bactive);
@@ -60,7 +63,13 @@ public class GameManager : Singleton<GameManager>
     public void ChangeStage(int Stage, Vector2 _pos = default(Vector2))
     {
         GameObject obj1 = GameObject.Find("Main");
-        
+
+
+        if (delay < 1)
+            return;
+
+        delay = 0;
+
         if (obj1 != null)
         {
             obj1.SetActive(false);
@@ -74,14 +83,15 @@ public class GameManager : Singleton<GameManager>
             if (StageType != StageValue.setting)            
                 PlayerReset(_pos);
 
-            light.GetComponent<Light2D>().color = new Color(1, 1, 1);
+            SetLight(new Color(1, 1, 1));
             Player.GetComponent<Player>().villige_Camera = false;
+            SoundMgr.Inst.PlaySfx(SoundMgr.Sfx.Potal);
             switch (StageType)
             {
                 
                 case StageValue.Village:
                     Player.GetComponent<Player>().villige_Camera = true;
-                    break;
+                    break;                    
                 case StageValue.Stage_1:
                     break;
                 case StageValue.Stage_2:
@@ -90,8 +100,8 @@ public class GameManager : Singleton<GameManager>
                     break;
                 case StageValue.EBA_Stage:
                     break;
-                case StageValue.HANS_Stage:                    
-                    light.GetComponent<Light2D>().color = new Color(0, 0, 0);
+                case StageValue.HANS_Stage:
+                    SetLight(new Color(0.25f, 0.25f, 0.25f));
                     break;
 
             }
@@ -118,8 +128,7 @@ public class GameManager : Singleton<GameManager>
             StageType = (StageValue)Stage;
             if (StageType != StageValue.setting)
                 PlayerReset(new Vector2(0,0));
-
-            light.GetComponent<Light2D>().color = new Color(1, 1, 1);
+            SetLight(new Color(1, 1, 1));
             Player.GetComponent<Player>().villige_Camera = false;
             switch (StageType)
             {
@@ -136,7 +145,7 @@ public class GameManager : Singleton<GameManager>
                 case StageValue.EBA_Stage:
                     break;
                 case StageValue.HANS_Stage:
-                    light.GetComponent<Light2D>().color = new Color(0, 0, 0);
+                    SetLight(new Color(0.25f, 0.25f, 0.25f));
                     break;
 
             }
@@ -155,6 +164,11 @@ public class GameManager : Singleton<GameManager>
             Player.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
             // Player.GetComponent<Player>().CameraSet();
     }
+    public void SetLight(Color _light)
+    {
+        light.GetComponent<Light2D>().color = _light;
+    }
+
 
     public void GameExit()
     {

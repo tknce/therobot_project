@@ -506,7 +506,7 @@ TextureImporter:
         width: 129
         height: 171
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -527,7 +527,9 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 552d5ae2d85c86e46b766dc9d70a6e10, type: 3}
+      name: light
     nameFileIdTable:
       "\uD50C\uB808\uC774\uC5B4 \uBAA8\uC158 \uD0C0\uC77C_\uD574\uC0C1\uB3C4216_\uADF8\uB9BC\uC790x.ver_0": -1845333360
       "\uD50C\uB808\uC774\uC5B4 \uBAA8\uC158 \uD0C0\uC77C_\uD574\uC0C1\uB3C4216_\uADF8\uB9BC\uC790x.ver_1": 11942461

@@ -14,7 +14,7 @@ public struct Event_condition
 public class EventManager : Singleton<EventManager>
 {
     EventWave eventWave;
-    Event_condition event_conditon = new Event_condition();
+    public Event_condition event_conditon = new Event_condition();
     
 
     protected override void Awake()

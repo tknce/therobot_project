@@ -23,7 +23,7 @@ public class SoundMgr : Singleton<SoundMgr>
 
     public enum Sfx // 사운드 열거형으로 설정해두기
     {
-        button, Jump, Jump2,
+        button, Jump, Jump2, Potal
     }
     protected override void Awake()
     {
